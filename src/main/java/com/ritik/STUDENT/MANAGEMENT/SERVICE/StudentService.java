@@ -4,6 +4,7 @@ import com.ritik.STUDENT.MANAGEMENT.DTO.AddStudentRequestsDto;
 import com.ritik.STUDENT.MANAGEMENT.DTO.StudentDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StudentService {
     List<StudentDto> getAllStudents();
@@ -14,5 +15,7 @@ public interface StudentService {
 
     void deleteStudentById(Long id);
 
-    StudentDto updateService(Long id, AddStudentRequestsDto addStudentRequestsDto);
+    StudentDto updateStudent(Long id, AddStudentRequestsDto addStudentRequestsDto);
+
+    StudentDto updatePartialStudent(Long id, Map<String, Object> updates);
 }

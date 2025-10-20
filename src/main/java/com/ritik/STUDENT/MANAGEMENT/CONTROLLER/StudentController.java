@@ -5,12 +5,14 @@ import com.ritik.STUDENT.MANAGEMENT.DTO.StudentDto;
 import com.ritik.STUDENT.MANAGEMENT.ENTITY.STUDENT;
 import com.ritik.STUDENT.MANAGEMENT.REPOSITORY.StudentRepository;
 import com.ritik.STUDENT.MANAGEMENT.SERVICE.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class  StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentDto>  createNewStudent(@RequestBody AddStudentRequestsDto addStudentRequestsDto){
+    public ResponseEntity<StudentDto>  createNewStudent(@RequestBody @Valid AddStudentRequestsDto addStudentRequestsDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createNewStudent(addStudentRequestsDto));
     }
 
@@ -47,7 +49,14 @@ public class  StudentController {
     @PutMapping("/{id}")
     public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id,
                                                     @RequestBody AddStudentRequestsDto addStudentRequestsDto){
-return  ResponseEntity.ok(studentService.updateService(id,addStudentRequestsDto));
+return  ResponseEntity.ok(studentService.updateStudent(id,addStudentRequestsDto));
+
+
+    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<StudentDto> updatePartialStudent(@PathVariable Long id,
+                                                    @RequestBody Map<String,Object> updates){
+        return  ResponseEntity.ok(studentService.updatePartialStudent(id,updates));
 
 
     }
